@@ -14,15 +14,21 @@ command:
 
 scripts:
   build:
-    run: dart run melos exec --dir-exists=lib -- "dart run build_runner build --delete-conflicting-outputs"
+    run: |
+      dart run melos exec --dir-exists=lib --depends-on="flutter" -- "flutter packages pub run build_runner build --delete-conflicting-outputs"
+      dart run melos exec --dir-exists=lib --no-depends-on="flutter" -- "dart run build_runner build --delete-conflicting-outputs"
     description: Generate code for all packages using build_runner.
 
   build:watch:
-    run: dart run melos exec --dir-exists=lib -- "dart run build_runner watch --delete-conflicting-outputs"
+    run: |
+      dart run melos exec --dir-exists=lib --depends-on="flutter" -- "flutter packages pub run build_runner watch --delete-conflicting-outputs"
+      dart run melos exec --dir-exists=lib --no-depends-on="flutter" -- "dart run build_runner watch --delete-conflicting-outputs"
     description: Watch and generate code for all packages.
 
   build:clean:
-    run: dart run melos exec --dir-exists=lib -- "dart run build_runner clean"
+    run: |
+      dart run melos exec --dir-exists=lib --depends-on="flutter" -- "flutter packages pub run build_runner clean"
+      dart run melos exec --dir-exists=lib --no-depends-on="flutter" -- "dart run build_runner clean"
     description: Clean generated files for all packages.
 
   analyze:
