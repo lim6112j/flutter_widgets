@@ -1,0 +1,78 @@
+name: melos_project
+repository: https://github.com/your-org/melos_project
+
+packages:
+  - packages/**
+  - apps/**
+
+command:
+  bootstrap:
+    # It seems so that running "pub get" in parallel has some issues (like
+    # https://github.com/dart-lang/pub/issues/3404). Disabling this feature
+    # makes the bootstrap command more reliable.
+    runPubGetInParallel: false
+
+scripts:
+  build:
+    run: dart run melos exec --dir-exists=lib -- "dart run build_runner build --delete-conflicting-outputs"
+    description: Generate code for all packages using build_runner.
+
+  build:watch:
+    run: dart run melos exec --dir-exists=lib -- "dart run build_runner watch --delete-conflicting-outputs"
+    description: Watch and generate code for all packages.
+
+  build:clean:
+    run: dart run melos exec --dir-exists=lib -- "dart run build_runner clean"
+    description: Clean generated files for all packages.
+
+  analyze:
+    run: |
+      dart run melos exec -c 5 --dir-exists=lib -- \
+        dart analyze . --fatal-infos
+    description: |
+      Run `dart analyze` in all packages.
+       - Note: you can also rely on your IDEs Dart Analysis / Issues window.
+
+  check-format:
+    run: dart run melos exec --dir-exists=lib -- dart format --output=none --set-exit-if-changed .
+    description: |
+      Check if all Dart code in this repo is formatted correctly.
+       - Note: you can also rely on your IDEs Dart Analysis / Issues window.
+
+  format:
+    run: dart run melos exec --dir-exists=lib -- dart format .
+    description: Format all Dart code in this repo.
+
+  test:
+    run: |
+      dart run melos exec -c 6 --fail-fast -- \
+        "dart test test"
+    description: Run `dart test` for all packages.
+
+  test:select:
+    run: dart run melos exec -c 6 --fail-fast -- "dart test test" --dir-exists=test
+    description: Run `dart test` for selected packages.
+
+  coverage:
+    run: |
+      dart run melos exec -c 1 --fail-fast -- \
+        "dart test --coverage=coverage && dart run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info --packages=.dart_tool/package_config.json --report-on=lib"
+    description: Generate coverage for all packages.
+
+  clean:
+    run: |
+      dart run melos exec -c 5 -- \
+        "dart clean"
+    description: Clean all packages.
+
+  pub-get:
+    run: |
+      dart run melos exec -c 5 -- \
+        "dart pub get"
+    description: Run `dart pub get` in all packages.
+
+  upgrade:
+    run: |
+      dart run melos exec -c 5 -- \
+        "dart pub upgrade"
+    description: Run `dart pub upgrade` in all packages.

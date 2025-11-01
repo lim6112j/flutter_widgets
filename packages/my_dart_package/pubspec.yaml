@@ -1,0 +1,9 @@
+name: my_dart_package
+description: A sample Dart package for the melos project.
+version: 1.0.0
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dev_dependencies:
+  test: ^1.21.0
