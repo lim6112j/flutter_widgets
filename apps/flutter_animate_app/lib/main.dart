@@ -2,11 +2,11 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart'
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_dart_package/providers/item_provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -78,7 +78,7 @@ class HomePage extends ConsumerWidget {
                             .scale(
                               delay: (100 * index).ms,
                               duration: 600.ms,
-                              begin: 0.0,
+                              begin: const Offset(0.0, 0.0),
                               curve: Curves.elasticOut,
                             ),
                         title: Text(item.title)
@@ -112,8 +112,8 @@ class HomePage extends ConsumerWidget {
                         .scale(
                           delay: (100 * index).ms,
                           duration: 300.ms,
-                          begin: 0.95,
-                          end: 1.0,
+                          begin: const Offset(0.95, 0.95),
+                          end: const Offset(1.0, 1.0),
                         );
                   },
                 ),
