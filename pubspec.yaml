@@ -1,0 +1,12 @@
+name: melos_project
+description: A Melos workspace for managing multiple Dart/Flutter packages
+version: 1.0.0
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dev_dependencies:
+  melos: ^6.0.0
+
+dependency_overrides:
+  # Add any dependency overrides here if needed
