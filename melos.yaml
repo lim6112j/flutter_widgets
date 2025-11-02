@@ -73,9 +73,11 @@ scripts:
 
   pub-get:
     run: |
-      dart run melos exec -c 5 -- \
+      dart run melos exec -c 5 --depends-on="flutter" -- \
+        "flutter pub get"
+      dart run melos exec -c 5 --no-depends-on="flutter" -- \
         "dart pub get"
-    description: Run `dart pub get` in all packages.
+    description: Run `flutter pub get` for Flutter packages and `dart pub get` for Dart packages.
 
   upgrade:
     run: |
