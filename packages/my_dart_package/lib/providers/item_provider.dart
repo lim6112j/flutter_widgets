@@ -1,6 +1,6 @@
 library my_dart_package;
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod/riverpod.dart';
 
 class Item {
   final int id;
