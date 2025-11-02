@@ -80,9 +80,8 @@ scripts:
     description: Run `flutter pub get` for Flutter packages and `dart pub get` for Dart packages.
 
   run:flutter_animate_app:
-    run: flutter run
-    exec:
-      cwd: apps/flutter_animate_app
+    run: |
+      cd apps/flutter_animate_app && flutter run
     description: Run the flutter_animate_app.
 
   upgrade:
