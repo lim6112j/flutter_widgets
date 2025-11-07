@@ -4,6 +4,7 @@ import 'package:my_dart_package/providers/timer_provider.dart';
 import '../clippers/my_clipper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'hero_animation_page.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -17,6 +18,17 @@ class HomePage extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('Animate + Riverpod'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.animation),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const HeroAnimationPage(),
+                ),
+              );
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () {
@@ -128,4 +140,3 @@ class HomePage extends ConsumerWidget {
     );
   }
 }
-
