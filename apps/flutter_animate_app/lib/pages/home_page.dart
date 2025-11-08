@@ -19,13 +19,6 @@ class HomePage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Animate + Riverpod'),
-        // add bugger menu
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {
-            Scaffold.of(context).openDrawer();
-          },
-        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.stacked_line_chart),
@@ -69,7 +62,94 @@ class HomePage extends ConsumerWidget {
           )
         ],
       ),
-      // add clipoval with blue rectable child to body
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Icon(
+                    Icons.animation,
+                    size: 48,
+                    color: Colors.white,
+                  ).animate().rotate(duration: 1000.ms),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Animation Menu',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: const Text('Home'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.stacked_line_chart),
+              title: const Text('Staggered Animation'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const StaggeredAnimationPage(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.animation),
+              title: const Text('Hero Animation'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HeroAnimationPage(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.fifteen_mp),
+              title: const Text('Physics Animation'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const PhysicsPage(child: FlutterLogo(size: 128)),
+                  ),
+                );
+              },
+            ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.refresh),
+              title: const Text('Refresh Items'),
+              onTap: () {
+                Navigator.pop(context);
+                notifier.reset();
+                notifier.loadItems();
+              },
+            ),
+          ],
+        ),
+      ),
       body: state.isLoading
           ? const Center(child: CircularProgressIndicator())
           : state.error != null
