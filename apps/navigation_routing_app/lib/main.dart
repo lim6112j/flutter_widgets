@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:navigation_routing_app/pages/my_home_page.dart';
-import 'package:navigation_routing_app/pages/setting_page.dart';
-import 'package:navigation_routing_app/pages/user_page.dart';
+import 'package:navigation_routing_app/router/app_router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,27 +11,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final GoRouter router = GoRouter(
-      initialLocation: '/',
-      routes: [
-        GoRoute(
-          path: '/',
-          name: 'home',
-          builder: (context, state) => const MyHomePage(title: 'Flutter Navigation Home Page'),
-        ),
-        GoRoute(
-          path: '/settings',
-          name: 'settings',
-          builder: (context, state) => const SettingPage(),
-        ),
-        GoRoute(
-          path: '/user',
-          name: 'user',
-          builder: (context, state) => const UserPage(),
-        ),
-      ],
-    );
-
     return MaterialApp.router(
       title: 'Flutter Navigation App',
       debugShowCheckedModeBanner: false,
@@ -56,7 +32,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      routerConfig: router,
+      routerConfig: appRouter,
     );
   }
 }
