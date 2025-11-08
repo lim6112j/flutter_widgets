@@ -26,20 +26,41 @@ class _PhysicsPageState extends State<PhysicsPage> with SingleTickerProviderStat
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onPanDown: (details){},
-      onPanUpdate: (details) {
-        setState(() {
-          _alignment += Alignment(
-            details.delta.dx / context.size!.width / 2,
-            details.delta.dy / context.size!.height / 2,
-          );
-        });
-      },
-      onPanStart: (details) {},
-      child: Align(
-        alignment: _alignment,
-        child: widget.child,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Physics Animation'),
+      ),
+      body: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text(
+              'You can drag logo',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Expanded(
+            child: GestureDetector(
+              onPanDown: (details){},
+              onPanUpdate: (details) {
+                setState(() {
+                  _alignment += Alignment(
+                    details.delta.dx / context.size!.width / 2,
+                    details.delta.dy / context.size!.height / 2,
+                  );
+                });
+              },
+              onPanStart: (details) {},
+              child: Align(
+                alignment: _alignment,
+                child: widget.child,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
