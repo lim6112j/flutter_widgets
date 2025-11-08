@@ -19,6 +19,13 @@ class HomePage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Animate + Riverpod'),
+        // add bugger menu
+        leading: IconButton(
+          icon: const Icon(Icons.menu),
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.stacked_line_chart),
