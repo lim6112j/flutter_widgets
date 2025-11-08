@@ -55,7 +55,7 @@ class _StaggeredAnimationPageState extends State<StaggeredAnimationPage>
                 color: Colors.black.withValues(alpha: 0.5),
               ),
             ),
-            child: StaggerAnimation(controller:_controller.view),
+            child: StaggerAnimation(controller: _controller),
           ),
         ),
       ),
