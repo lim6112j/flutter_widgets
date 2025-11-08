@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate_app/pages/physics_page.dart';
+import 'package:flutter_animate_app/pages/staggered_animation_page.dart';
 import 'package:my_dart_package/providers/item_provider.dart';
 import 'package:my_dart_package/providers/timer_provider.dart';
 import '../clippers/my_clipper.dart';
@@ -19,6 +20,17 @@ class HomePage extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('Animate + Riverpod'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.stacked_line_chart),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const StaggeredAnimationPage(),
+                ),
+              );
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.animation),
             onPressed: () {
