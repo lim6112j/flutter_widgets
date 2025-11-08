@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate_app/pages/physics_page.dart';
 import 'package:my_dart_package/providers/item_provider.dart';
 import 'package:my_dart_package/providers/timer_provider.dart';
 import '../clippers/my_clipper.dart';
@@ -25,6 +26,17 @@ class HomePage extends ConsumerWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => const HeroAnimationPage(),
+                ),
+              );
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.fifteen_mp),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PhysicsPage(child: FlutterLogo(size: 128)),
                 ),
               );
             },
