@@ -11,7 +11,7 @@ This is a melos-managed monorepo for Dart/Flutter projects.
 
 2. Bootstrap the workspace:
    ```bash
-   melos bootstrap
+   dart run melos bootstrap
    ```
 
 ## Available Scripts
