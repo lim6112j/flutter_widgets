@@ -64,6 +64,14 @@ class _MyHomePageState extends State<MyHomePage> {
               context.push('/search');
             },
           ),
+
+          IconButton(
+            icon: const Icon(Icons.map),
+            onPressed: () {
+              // Navigate to map page
+              context.push('/map');
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.more_vert),
             onPressed: () {

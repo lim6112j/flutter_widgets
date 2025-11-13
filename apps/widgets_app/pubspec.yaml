@@ -37,6 +37,8 @@ dependencies:
   my_dart_package:
     path: ../../packages/my_dart_package
   go_router: ^14.6.2
+  flutter_map: ^7.0.2
+  latlong2: ^0.9.0
 
 dev_dependencies:
   flutter_test:
