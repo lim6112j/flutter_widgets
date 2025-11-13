@@ -10,6 +10,8 @@ command:
     # https://github.com/dart-lang/pub/issues/3404). Disabling this feature
     # makes the bootstrap command more reliable.
     runPubGetInParallel: false
+    hooks:
+      post: melos run pub-get
 
 scripts:
   build:
@@ -78,9 +80,6 @@ scripts:
         "dart pub get"
     description: Run `flutter pub get` for Flutter packages and `dart pub get` for Dart packages.
 
-  bootstrap:
-    hooks:
-      post: melos run pub-get
 
   run:flutter_animate_app:
     run: |
