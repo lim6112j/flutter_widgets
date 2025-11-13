@@ -5,7 +5,7 @@ import 'package:widgets_app/pages/my_home_page.dart';
 final routes = GoRouter(
   routes: [
     GoRoute(
-      path: '/',
+      path: '/temp',
       name: 'home',
       builder: (context, state) => const Scaffold(
         body: Center(
@@ -14,7 +14,7 @@ final routes = GoRouter(
       ),
     ),
     GoRoute(
-      path: '/widgets',
+      path: '/',
       name: 'widgets',
       builder: (context, state) => const MyHomePage(title: 'Widgets App'),
     ),
