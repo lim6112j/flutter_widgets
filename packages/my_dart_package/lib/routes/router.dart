@@ -1,12 +1,16 @@
 import 'package:go_router/go_router.dart';
-import 'package:widgets_app/lib/pages/home_page.dart';
+import 'package:flutter/material.dart';
 
-final routes = GoRouter (
+final routes = GoRouter(
   routes: [
     GoRoute(
       path: '/',
       name: 'home',
-      builder: (context, state) => const MyHomePage(),
+      builder: (context, state) => const Scaffold(
+        body: Center(
+          child: Text('Home Page'),
+        ),
+      ),
     ),
   ],
 );
