@@ -36,7 +36,7 @@ class MyMenu extends StatelessWidget {
               onTap: () {
                   _gotoDetailsPage(context);
                 },
-                title: const Text('tap on the icon')
+            title: const Text('Hero: tap on the icon')
               )
             ],
                 ),
