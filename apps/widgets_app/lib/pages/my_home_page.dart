@@ -46,11 +46,11 @@ class _MyHomePageState extends State<MyHomePage> {
         controller: _controller,
         direction: Axis.vertical,
         children: [
-          ResizableChild(
+          ResizableChildWidget(
             size: const ResizableSize.expand(),
             child: const MyMap(),
           ),
-          ResizableChild(
+          ResizableChildWidget(
             size: const ResizableSize.pixels(300),
             child: const DraggableScrollableSheetWidget(),
           ),
