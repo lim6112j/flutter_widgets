@@ -99,15 +99,13 @@ class DismissibleWidget extends StatefulWidget {
 class _DismissibleWidgetState extends State<DismissibleWidget> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(  
+    return ListView.builder(
       itemCount: 10,
       itemBuilder: (context, index) {
         return Dismissible(
           background: Container(color: Colors.red),
           key: Key('$index'),
-          child: ListTile(
-            title: Text('Item $index'),
-          ),
+          child: ListTile(title: Text('Item $index')),
         );
       },
     );

@@ -27,9 +27,9 @@ class _UsersScreenState extends State<UsersScreen> {
         _loading = true;
         _error = null;
       });
-      
+
       final users = await _api.getUsers();
-      
+
       setState(() {
         _users = users;
         _loading = false;
@@ -126,9 +126,9 @@ class _UsersScreenState extends State<UsersScreen> {
   void _showUserPosts(User user) async {
     try {
       final posts = await _api.getUserPosts(user.id);
-      
+
       if (!mounted) return;
-      
+
       showModalBottomSheet(
         context: context,
         isScrollControlled: true,

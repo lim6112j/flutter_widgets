@@ -9,13 +9,17 @@ class PhysicsPage extends StatefulWidget {
   State<PhysicsPage> createState() => _PhysicsPageState();
 }
 
-class _PhysicsPageState extends State<PhysicsPage> with SingleTickerProviderStateMixin{
+class _PhysicsPageState extends State<PhysicsPage>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   Alignment _alignment = Alignment.center;
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    );
   }
 
   @override
@@ -27,24 +31,19 @@ class _PhysicsPageState extends State<PhysicsPage> with SingleTickerProviderStat
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Physics Animation'),
-      ),
+      appBar: AppBar(title: const Text('Physics Animation')),
       body: Column(
         children: [
           const Padding(
             padding: EdgeInsets.all(16.0),
             child: Text(
               'You can drag logo',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ),
           Expanded(
             child: GestureDetector(
-              onPanDown: (details){},
+              onPanDown: (details) {},
               onPanUpdate: (details) {
                 setState(() {
                   _alignment += Alignment(
@@ -54,10 +53,7 @@ class _PhysicsPageState extends State<PhysicsPage> with SingleTickerProviderStat
                 });
               },
               onPanStart: (details) {},
-              child: Align(
-                alignment: _alignment,
-                child: widget.child,
-              ),
+              child: Align(alignment: _alignment, child: widget.child),
             ),
           ),
         ],

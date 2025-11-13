@@ -12,12 +12,13 @@ import 'services/json_placeholder_api.dart';
 // Helper function to create a configured API client
 JsonPlaceholderApi createApiClient({String? baseUrl}) {
   final dio = Dio();
-  
+
   // Add interceptors for logging, authentication, etc.
   dio.interceptors.add(LogInterceptor(
     requestBody: true,
     responseBody: true,
   ));
-  
-  return JsonPlaceholderApi(dio, baseUrl: baseUrl ?? 'https://jsonplaceholder.typicode.com');
+
+  return JsonPlaceholderApi(dio,
+      baseUrl: baseUrl ?? 'https://jsonplaceholder.typicode.com');
 }

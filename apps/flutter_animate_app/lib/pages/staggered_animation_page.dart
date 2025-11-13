@@ -37,9 +37,7 @@ class _StaggeredAnimationPageState extends State<StaggeredAnimationPage>
   Widget build(BuildContext context) {
     //timeDilation = 10.0; // 1.0 is normal animation speed.
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Staggered Animation'),
-      ),
+      appBar: AppBar(title: const Text('Staggered Animation')),
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () {
@@ -51,9 +49,7 @@ class _StaggeredAnimationPageState extends State<StaggeredAnimationPage>
             height: 300,
             decoration: BoxDecoration(
               color: Colors.black.withValues(alpha: 0.1),
-              border: Border.all(
-                color: Colors.black.withValues(alpha: 0.5),
-              ),
+              border: Border.all(color: Colors.black.withValues(alpha: 0.5)),
             ),
             child: StaggerAnimation(controller: _controller),
           ),

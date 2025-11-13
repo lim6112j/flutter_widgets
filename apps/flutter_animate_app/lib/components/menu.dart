@@ -7,7 +7,7 @@ class Menu extends StatefulWidget {
   State<Menu> createState() => _MenuState();
 }
 
-class _MenuState extends State<Menu> with SingleTickerProviderStateMixin{
+class _MenuState extends State<Menu> with SingleTickerProviderStateMixin {
   final List<Interval> _itemSlideIntervals = [];
   late Interval _buttonInterval;
   static const _initialDelayTime = Duration(milliseconds: 50);
@@ -16,10 +16,10 @@ class _MenuState extends State<Menu> with SingleTickerProviderStateMixin{
   static const _buttonDelayTime = Duration(milliseconds: 150);
   static const _buttonTime = Duration(milliseconds: 500);
   final _animationDuration =
-    _initialDelayTime +
-  (_staggerTime * _menuTitles.length) +
-  _buttonDelayTime +
-  _buttonTime;
+      _initialDelayTime +
+      (_staggerTime * _menuTitles.length) +
+      _buttonDelayTime +
+      _buttonTime;
 
   late AnimationController _staggeredController;
   static const _menuTitles = [
@@ -38,8 +38,9 @@ class _MenuState extends State<Menu> with SingleTickerProviderStateMixin{
       vsync: this,
     )..forward();
   }
+
   void _createAnimationIntervals() {
-        for (var i = 0; i < _menuTitles.length; ++i) {
+    for (var i = 0; i < _menuTitles.length; ++i) {
       final startTime = _initialDelayTime + (_staggerTime * i);
       final endTime = startTime + _itemSlideTime;
       _itemSlideIntervals.add(
@@ -48,7 +49,8 @@ class _MenuState extends State<Menu> with SingleTickerProviderStateMixin{
           endTime.inMilliseconds / _animationDuration.inMilliseconds,
         ),
       );
-      final buttonStartTime = Duration(milliseconds: _menuTitles.length * 50) + _buttonDelayTime;
+      final buttonStartTime =
+          Duration(milliseconds: _menuTitles.length * 50) + _buttonDelayTime;
       final buttonEndTime = buttonStartTime + _buttonTime;
       _buttonInterval = Interval(
         buttonStartTime.inMilliseconds / _animationDuration.inMilliseconds,
@@ -56,11 +58,13 @@ class _MenuState extends State<Menu> with SingleTickerProviderStateMixin{
       );
     }
   }
+
   @override
   void dispose() {
     _staggeredController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -88,6 +92,7 @@ class _MenuState extends State<Menu> with SingleTickerProviderStateMixin{
       ],
     );
   }
+
   List<Widget> _buildListItems() {
     final listItems = <Widget>[];
     for (var i = 0; i < _menuTitles.length; ++i) {

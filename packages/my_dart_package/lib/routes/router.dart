@@ -9,9 +9,9 @@ import 'package:widgets_app/pages/stream_builder_example.dart';
 final routes = GoRouter(
   routes: [
     GoRoute(
-      path: '/search',
-      name: 'search',
-      builder: (context, state) => const MySettingPage()),
+        path: '/search',
+        name: 'search',
+        builder: (context, state) => const MySettingPage()),
     GoRoute(
       path: '/map',
       name: 'map',

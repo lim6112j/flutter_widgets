@@ -21,19 +21,21 @@ class HeroAnimationPage extends StatelessWidget {
                       const CustomTransitionPage(),
                   transitionsBuilder:
                       (context, animation, secondaryAnimation, child) {
-                    const begin = Offset(1.0, 0.0);
-                    const end = Offset.zero;
-                    const curve = Curves.easeInOut;
+                        const begin = Offset(1.0, 0.0);
+                        const end = Offset.zero;
+                        const curve = Curves.easeInOut;
 
-                    var tween = Tween(begin: begin, end: end)
-                        .chain(CurveTween(curve: curve));
-                    var offsetAnimation = animation.drive(tween);
+                        var tween = Tween(
+                          begin: begin,
+                          end: end,
+                        ).chain(CurveTween(curve: curve));
+                        var offsetAnimation = animation.drive(tween);
 
-                    return SlideTransition(
-                      position: offsetAnimation,
-                      child: child,
-                    );
-                  },
+                        return SlideTransition(
+                          position: offsetAnimation,
+                          child: child,
+                        );
+                      },
                   transitionDuration: const Duration(milliseconds: 500),
                 ),
               );
@@ -60,38 +62,35 @@ class HeroAnimationPage extends StatelessWidget {
                 ),
               );
             },
-            child: Hero(
-              tag: 'hero-$index',
-              child: Card(
-                elevation: 4,
-                color: Colors.primaries[index % Colors.primaries.length],
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.star,
-                        size: 48,
-                        color: Colors.white,
+            child:
+                Hero(
+                  tag: 'hero-$index',
+                  child: Card(
+                    elevation: 4,
+                    color: Colors.primaries[index % Colors.primaries.length],
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.star, size: 48, color: Colors.white),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Item ${index + 1}',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Item ${index + 1}',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
+                ).animate().scale(
+                  delay: (100 * index).ms,
+                  duration: 400.ms,
+                  curve: Curves.easeOut,
                 ),
-              ),
-            ).animate().scale(
-              delay: (100 * index).ms,
-              duration: 400.ms,
-              curve: Curves.easeOut,
-            ),
           );
         },
       ),
@@ -107,9 +106,7 @@ class HeroDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Item ${index + 1} Details'),
-      ),
+      appBar: AppBar(title: Text('Item ${index + 1} Details')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -126,11 +123,7 @@ class HeroDetailPage extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.star,
-                          size: 120,
-                          color: Colors.white,
-                        ),
+                        Icon(Icons.star, size: 120, color: Colors.white),
                         const SizedBox(height: 16),
                         Text(
                           'Item ${index + 1}',
@@ -185,10 +178,7 @@ class CustomTransitionPage extends StatelessWidget {
             const SizedBox(height: 24),
             Text(
               'Custom Page Transition',
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ).animate().fadeIn(delay: 200.ms).slideY(begin: 0.3, delay: 200.ms),
             const SizedBox(height: 16),
             Padding(
@@ -209,16 +199,16 @@ class CustomTransitionPage extends StatelessWidget {
                         const ScaleTransitionPage(),
                     transitionsBuilder:
                         (context, animation, secondaryAnimation, child) {
-                      return ScaleTransition(
-                        scale: Tween<double>(begin: 0.0, end: 1.0).animate(
-                          CurvedAnimation(
-                            parent: animation,
-                            curve: Curves.easeInOutBack,
-                          ),
-                        ),
-                        child: child,
-                      );
-                    },
+                          return ScaleTransition(
+                            scale: Tween<double>(begin: 0.0, end: 1.0).animate(
+                              CurvedAnimation(
+                                parent: animation,
+                                curve: Curves.easeInOutBack,
+                              ),
+                            ),
+                            child: child,
+                          );
+                        },
                     transitionDuration: const Duration(milliseconds: 600),
                   ),
                 );
@@ -228,7 +218,10 @@ class CustomTransitionPage extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.deepOrange,
                 foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 12,
+                ),
               ),
             ).animate().scale(delay: 600.ms),
             const SizedBox(height: 16),
@@ -241,11 +234,11 @@ class CustomTransitionPage extends StatelessWidget {
                         const FadeTransitionPage(),
                     transitionsBuilder:
                         (context, animation, secondaryAnimation, child) {
-                      return FadeTransition(
-                        opacity: animation,
-                        child: child,
-                      );
-                    },
+                          return FadeTransition(
+                            opacity: animation,
+                            child: child,
+                          );
+                        },
                     transitionDuration: const Duration(milliseconds: 800),
                   ),
                 );
@@ -255,7 +248,10 @@ class CustomTransitionPage extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.teal,
                 foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 12,
+                ),
               ),
             ).animate().scale(delay: 700.ms),
             const SizedBox(height: 16),
@@ -292,10 +288,7 @@ class ScaleTransitionPage extends StatelessWidget {
             const SizedBox(height: 24),
             Text(
               'Scale Transition Example',
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ).animate().fadeIn(delay: 300.ms),
             const SizedBox(height: 16),
             Text(
@@ -340,10 +333,7 @@ class FadeTransitionPage extends StatelessWidget {
             const SizedBox(height: 24),
             Text(
               'Fade Transition Example',
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ).animate().fadeIn(delay: 300.ms),
             const SizedBox(height: 16),
             Text(

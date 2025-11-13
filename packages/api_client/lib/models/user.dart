@@ -38,7 +38,8 @@ class Address {
     required this.geo,
   });
 
-  factory Address.fromJson(Map<String, dynamic> json) => _$AddressFromJson(json);
+  factory Address.fromJson(Map<String, dynamic> json) =>
+      _$AddressFromJson(json);
   Map<String, dynamic> toJson() => _$AddressToJson(this);
 }
 
@@ -68,6 +69,7 @@ class Company {
     required this.bs,
   });
 
-  factory Company.fromJson(Map<String, dynamic> json) => _$CompanyFromJson(json);
+  factory Company.fromJson(Map<String, dynamic> json) =>
+      _$CompanyFromJson(json);
   Map<String, dynamic> toJson() => _$CompanyToJson(this);
 }

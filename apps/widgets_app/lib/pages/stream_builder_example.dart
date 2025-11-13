@@ -15,6 +15,7 @@ class _StreamBuilderExampleState extends State<StreamBuilderExample> {
     super.initState();
     _stream = Stream.periodic(const Duration(seconds: 1), (i) => i + 1);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,0 +1,4 @@
+# melos_managed_dependency_overrides: my_dart_package
+dependency_overrides:
+  my_dart_package:
+    path: ../../packages/my_dart_package

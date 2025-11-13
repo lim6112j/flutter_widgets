@@ -1,6 +1,8 @@
 /// A simple calculator library.
 library my_dart_package;
+
 export 'routes/router.dart';
+
 /// A Calculator class with basic arithmetic operations.
 class Calculator {
   /// Adds two numbers.
@@ -20,4 +22,3 @@ class Calculator {
     return a / b;
   }
 }
-

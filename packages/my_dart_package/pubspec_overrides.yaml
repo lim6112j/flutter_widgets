@@ -1,0 +1,4 @@
+# melos_managed_dependency_overrides: widgets_app
+dependency_overrides:
+  widgets_app:
+    path: ../../apps/widgets_app

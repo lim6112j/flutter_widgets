@@ -15,9 +15,7 @@ class MySettingPage extends StatelessWidget {
           },
         ),
       ),
-      body: const Center(
-        child: Text('Setting Page'),
-      ),
+      body: const Center(child: Text('Setting Page')),
     );
   }
 }

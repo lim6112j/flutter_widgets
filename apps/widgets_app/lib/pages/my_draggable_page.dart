@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:widgets_app/components/my_draggable_components.dart';
+
 class MyDraggablePage extends StatelessWidget {
   const MyDraggablePage({super.key});
   @override
@@ -15,7 +16,7 @@ class MyDraggablePage extends StatelessWidget {
           },
         ),
       ),
-      body:  MyDraggableComponents(),
+      body: MyDraggableComponents(),
     );
   }
 }
