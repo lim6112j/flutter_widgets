@@ -47,11 +47,11 @@ class _MyHomePageState extends State<MyHomePage> {
         direction: Axis.vertical,
         children: [
           ResizableChild(
-            size: const ResizableSize.ratio(0.6),
+            size: const ResizableSize.expand(),
             child: const MyMap(),
           ),
           ResizableChild(
-            size: const ResizableSize.ratio(0.4),
+            size: const ResizableSize.pixels(300),
             child: const DraggableScrollableSheetWidget(),
           ),
         ],
