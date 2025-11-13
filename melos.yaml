@@ -2,10 +2,8 @@ name: melos_project
 repository: https://github.com/your-org/melos_project
 
 packages:
-  - packages/*
-  - apps/*
-  - packages/*/
-  - apps/*/
+  - packages/**
+  - apps/**
 
 command:
   bootstrap:
