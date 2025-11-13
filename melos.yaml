@@ -78,6 +78,10 @@ scripts:
         "dart pub get"
     description: Run `flutter pub get` for Flutter packages and `dart pub get` for Dart packages.
 
+  bootstrap:
+    hooks:
+      post: melos run pub-get
+
   run:flutter_animate_app:
     run: |
       cd apps/flutter_animate_app && flutter run
