@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:widgets_app/pages/my_home_page.dart';
 import 'package:widgets_app/pages/my_setting_page.dart';
 import 'package:widgets_app/pages/map_page.dart';
+import 'package:widgets_app/pages/my_draggable_page.dart';
 
 final routes = GoRouter(
   routes: [
@@ -18,6 +19,11 @@ final routes = GoRouter(
       path: '/',
       name: 'widgets',
       builder: (context, state) => const MyHomePage(title: 'Widgets App'),
+    ),
+    GoRoute(
+      path: '/draggable',
+      name: 'draggable',
+      builder: (context, state) => const MyDraggablePage(),
     ),
   ],
 );

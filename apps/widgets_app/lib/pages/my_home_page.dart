@@ -42,6 +42,34 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text('Widgets'),
+            ),
+            ListTile(
+              title: const Text('map'),
+              onTap: () {
+                context.push('/map');
+                // Handle item 1 press
+              },
+            ),
+            ListTile(
+              title: const Text('draggable'),
+              onTap: () {
+                context.push('/draggable');
+                // Handle item 2 press
+              },
+            ),
+          ],
+        ),
+      ),
+
       appBar: AppBar(
         // TRY THIS: Try changing the color here to a specific color (to
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
@@ -50,12 +78,6 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {
-            // Handle menu button press
-          },
-        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.search),
