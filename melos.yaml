@@ -40,13 +40,13 @@ scripts:
        - Note: you can also rely on your IDEs Dart Analysis / Issues window.
 
   check-format:
-    run: dart run melos exec --dir-exists=lib -- dart format --output=none --set-exit-if-changed .
+    run: dart run melos exec -- dart format --output=none --set-exit-if-changed .
     description: |
       Check if all Dart code in this repo is formatted correctly.
        - Note: you can also rely on your IDEs Dart Analysis / Issues window.
 
   format:
-    run: dart run melos exec --dir-exists=lib -- dart format .
+    run: dart run melos exec -- dart format .
     description: Format all Dart code in this repo.
 
   test:
