@@ -23,33 +23,19 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 class _MyHomePageState extends State<MyHomePage> {
-  late final ResizableController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = ResizableController();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const MyMenu(),
       appBar: const MyAppBar(title: 'my app'),
       body: ResizableContainer(
-        controller: _controller,
         direction: Axis.vertical,
         children: [
-          ResizableChild(
+          ResizableChildData(
+            startingRatio: 0.7,
             child: const MyMap(),
           ),
-          ResizableChild(
+          ResizableChildData(
             startingRatio: 0.3,
             child: const DraggableScrollableSheetWidget(),
           ),
