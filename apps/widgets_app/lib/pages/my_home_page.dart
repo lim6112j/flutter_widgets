@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_resizable_container/flutter_resizable_container.dart';
 import 'package:widgets_app/components/draggable_scrollable_sheet.dart';
 import 'package:widgets_app/components/my_appbar.dart';
+import 'package:widgets_app/components/my_map.dart';
 import 'package:widgets_app/components/my_menu.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -20,21 +22,39 @@ class MyHomePage extends StatefulWidget {
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
-
 class _MyHomePageState extends State<MyHomePage> {
+  late final ResizableController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = ResizableController();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const MyMenu(),
       appBar: const MyAppBar(title: 'my app'),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('many widgets examples'),
-            const DraggableScrollableSheetWidget(),
-          ],
-        ),
+      body: ResizableContainer(
+        controller: _controller,
+        direction: Axis.vertical,
+        children: [
+          ResizableChild(
+            size: const ResizableSize.ratio(0.6),
+            child: const MyMap(),
+          ),
+          ResizableChild(
+            size: const ResizableSize.ratio(0.4),
+            child: const DraggableScrollableSheetWidget(),
+          ),
+        ],
       ),
     );
   }
