@@ -6,7 +6,7 @@ environment:
   sdk: '>=3.0.0 <4.0.0'
 
 dev_dependencies:
-  melos: ^6.1.0
+  melos: ^6.3.3
 
 dependency_overrides:
   # Add any dependency overrides here if needed
