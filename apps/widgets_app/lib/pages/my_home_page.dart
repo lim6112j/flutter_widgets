@@ -50,6 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: ResizableContainer(
         controller: _controller,
         direction: Axis.vertical,
+        divider: const ResizableDivider(color: Colors.grey, size: 3.0, thickness: 2.0),
         children: const [
           MyMap(),
           DraggableScrollableSheetWidget(),
