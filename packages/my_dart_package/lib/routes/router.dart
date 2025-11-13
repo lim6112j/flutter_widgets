@@ -1,8 +1,10 @@
 import 'package:go_router/go_router.dart';
+import 'package:widgets_app/pages/martix_transition_example.dart';
 import 'package:widgets_app/pages/my_home_page.dart';
 import 'package:widgets_app/pages/my_setting_page.dart';
 import 'package:widgets_app/pages/map_page.dart';
 import 'package:widgets_app/pages/my_draggable_page.dart';
+import 'package:widgets_app/pages/stream_builder_example.dart';
 
 final routes = GoRouter(
   routes: [
@@ -24,6 +26,16 @@ final routes = GoRouter(
       path: '/draggable',
       name: 'draggable',
       builder: (context, state) => const MyDraggablePage(),
+    ),
+    GoRoute(
+      path: '/matrix-transition',
+      name: 'matrix-transition',
+      builder: (context, state) => const MatrixTransitionExample(),
+    ),
+    GoRoute(
+      path: '/stream-builder',
+      name: 'stream-builder',
+      builder: (context, state) => const StreamBuilderExample(),
     ),
   ],
 );

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:widgets_app/pages/martix_transition_example.dart';
+
 class MyMenu extends StatelessWidget {
   const MyMenu({super.key});
   @override
@@ -36,10 +38,23 @@ class MyMenu extends StatelessWidget {
               onTap: () {
                   _gotoDetailsPage(context);
                 },
-            title: const Text('Hero: tap on the icon')
-              )
-            ],
-                ),
+              title: const Text('Hero: tap on the icon')
+            ),
+            ListTile(
+              title: const Text('matrix transition'),
+              onTap: () {
+                context.push('/matrix-transition');
+              },
+            ),
+
+            ListTile(
+              title: const Text('stream builder'),
+              onTap: () {
+                context.push('/stream-builder');
+              },
+            )
+          ],
+        ),
   );
   }
 }
