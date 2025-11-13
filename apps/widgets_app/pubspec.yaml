@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   my_dart_package:
     path: ../../packages/my_dart_package
+  go_router: ^14.6.2
 
 dev_dependencies:
   flutter_test:

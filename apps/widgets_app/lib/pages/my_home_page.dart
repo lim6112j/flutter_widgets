@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -60,6 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: const Icon(Icons.search),
             onPressed: () {
               // Handle search button press
+              context.push('/search');
             },
           ),
           IconButton(
