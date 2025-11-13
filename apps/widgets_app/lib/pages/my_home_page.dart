@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:widgets_app/components/draggable_scrollable_sheet.dart';
 import 'package:widgets_app/components/my_appbar.dart';
 import 'package:widgets_app/components/my_menu.dart';
 
@@ -30,7 +30,10 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[const Text('many widgets examples')],
+          children: <Widget>[
+            const Text('many widgets examples'),
+            const DraggableScrollableSheetWidget(),
+          ],
         ),
       ),
     );

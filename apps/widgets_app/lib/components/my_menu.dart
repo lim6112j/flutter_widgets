@@ -51,6 +51,12 @@ class MyMenu extends StatelessWidget {
               context.push('/stream-builder');
             },
           ),
+          ListTile(
+            title: const Text('future builder'),
+            onTap: () {
+              context.push('/future-builder');
+            },
+          ),
         ],
       ),
     );

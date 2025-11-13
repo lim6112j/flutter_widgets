@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:widgets_app/pages/future_builder.dart';
 import 'package:widgets_app/pages/martix_transition_example.dart';
 import 'package:widgets_app/pages/my_home_page.dart';
 import 'package:widgets_app/pages/my_setting_page.dart';
@@ -36,6 +37,11 @@ final routes = GoRouter(
       path: '/stream-builder',
       name: 'stream-builder',
       builder: (context, state) => const StreamBuilderExample(),
+    ),
+    GoRoute(
+      path: '/future-builder',
+      name: 'future-builder',
+      builder: (context, state) => const FutureBuilderExample(),
     ),
   ],
 );
