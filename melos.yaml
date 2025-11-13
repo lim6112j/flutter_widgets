@@ -5,6 +5,10 @@ packages:
   - packages/**
   - apps/**
 
+ide:
+  intellij:
+    enabled: true
+
 command:
   bootstrap:
     # It seems so that running "pub get" in parallel has some issues (like
