@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:widgets_app/pages/future_builder.dart';
 import 'package:widgets_app/pages/martix_transition_example.dart';
+import 'package:widgets_app/pages/my_custom_multi_child_page.dart';
 import 'package:widgets_app/pages/my_home_page.dart';
 import 'package:widgets_app/pages/my_setting_page.dart';
 import 'package:widgets_app/pages/map_page.dart';
@@ -42,6 +43,11 @@ final routes = GoRouter(
       path: '/future-builder',
       name: 'future-builder',
       builder: (context, state) => const FutureBuilderExample(),
+    ),
+    GoRoute(
+      path: '/custom-multi-child',
+      name: 'custom-multi-child',
+      builder: (context, state) => const MyCustomMultiChildPage(),
     ),
   ],
 );

@@ -57,6 +57,12 @@ class MyMenu extends StatelessWidget {
               context.push('/future-builder');
             },
           ),
+          ListTile(
+            title: const Text('custom multi child'),
+            onTap: () {
+              context.push('/custom-multi-child');
+            },
+          ),
         ],
       ),
     );
