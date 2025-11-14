@@ -1,4 +1,6 @@
-# melos_managed_dependency_overrides: widgets_app
+# melos_managed_dependency_overrides: widgets_app,osrm_routes
 dependency_overrides:
   widgets_app:
     path: ../../apps/widgets_app
+  osrm_routes:
+    path: ../features/osrm

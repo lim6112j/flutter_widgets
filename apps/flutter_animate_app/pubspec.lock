@@ -439,6 +439,13 @@ packages:
       relative: true
     source: path
     version: "1.0.0"
+  osrm_routes:
+    dependency: "direct overridden"
+    description:
+      path: "../../packages/features/osrm"
+      relative: true
+    source: path
+    version: "1.0.0"
   package_config:
     dependency: transitive
     description:

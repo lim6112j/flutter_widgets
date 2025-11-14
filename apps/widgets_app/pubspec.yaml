@@ -40,6 +40,9 @@ dependencies:
   flutter_map: ^7.0.2
   latlong2: ^0.9.0
   flutter_resizable_container: ^1.0.0
+  osrm_routes:
+    path: ../../packages/features/osrm/routes
+  flutter_riverpod: ^2.5.0
 
 dev_dependencies:
   flutter_test:

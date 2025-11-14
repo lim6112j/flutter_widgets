@@ -4,8 +4,10 @@ import 'package:widgets_app/components/draggable_scrollable_sheet.dart';
 import 'package:widgets_app/components/my_appbar.dart';
 import 'package:widgets_app/components/my_map.dart';
 import 'package:widgets_app/components/my_menu.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:osrm_routes/osrm_routes.dart';
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends ConsumerStatefulWidget {
   const MyHomePage({super.key, required this.title});
 
   // This widget is the home page of your application. It is stateful, meaning
@@ -20,10 +22,10 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  ConsumerState<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends ConsumerState<MyHomePage> {
   late final ResizableController _controller;
 
   @override
@@ -35,6 +37,20 @@ class _MyHomePageState extends State<MyHomePage> {
         ResizableChildData(startingRatio: 0.3),
       ],
     );
+
+    // Load sample routes on init
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadSampleRoutes();
+    });
+  }
+
+  void _loadSampleRoutes() {
+    final notifier = ref.read(osrmRoutesProvider.notifier);
+    final sampleLocations = [
+      const OsrmLocation(longitude: 126.9780, latitude: 37.5665), // Seoul
+      const OsrmLocation(longitude: 129.0756, latitude: 35.1796), // Busan
+    ];
+    notifier.getRoutes(sampleLocations);
   }
 
   @override
@@ -45,9 +61,29 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    final routesState = ref.watch(osrmRoutesProvider);
+
     return Scaffold(
       drawer: const MyMenu(),
-      appBar: const MyAppBar(title: 'my app'),
+      appBar: const MyAppBar(
+        title: 'my app',
+        actions: [
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed:  _loadSampleRoutes,
+          ),
+          if (routesState.isLoading)
+             Padding(
+              padding: EdgeInsets.all(16.0),
+              child: SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(strokeWidth: 2),
+              ),
+            ),
+        ]
+      ),
       body: ResizableContainer(
         controller: _controller,
         direction: Axis.vertical,
