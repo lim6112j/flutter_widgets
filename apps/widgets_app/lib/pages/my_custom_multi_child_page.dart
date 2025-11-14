@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 class MyCustomMultiChildPage extends StatelessWidget {
   const MyCustomMultiChildPage({super.key});
   static const Map<String, Color> _colors = <String, Color>{
@@ -29,7 +30,12 @@ class MyCustomMultiChildPage extends StatelessWidget {
         children: _colors.keys.map((String color) {
           return LayoutId(
             id: color,
-            child: Container(color: _colors[color], width: 100, height: 100, child: Text(color)),
+            child: Container(
+              color: _colors[color],
+              width: 100,
+              height: 100,
+              child: Text(color),
+            ),
           );
         }).toList(),
       ),
@@ -50,7 +56,7 @@ class _CascadeLayoutDelegate extends MultiChildLayoutDelegate {
   void performLayout(Size size) {
     final double columnWidth = size.width / colors.length;
     Offset childPosition = Offset.zero;
-    switch(textDirection) {
+    switch (textDirection) {
       case TextDirection.rtl:
         childPosition += Offset(size.width, 0);
         break;
@@ -58,23 +64,27 @@ class _CascadeLayoutDelegate extends MultiChildLayoutDelegate {
         break;
     }
     for (final String color in colors.keys) {
-    final Size currentSize = layoutChild(
-      color,
-      BoxConstraints(
-        maxWidth: columnWidth,
-        maxHeight: size.height,
-    ));
-    switch(textDirection) {
-      case TextDirection.rtl:
-        positionChild(color, childPosition - Offset(currentSize.width, 0));
-        childPosition += Offset(-currentSize.width, currentSize.height - overlap);
-        break;
-      case TextDirection.ltr:
-        positionChild(color, childPosition);
-        childPosition += Offset(currentSize.width, currentSize.height - overlap);
-        break;
+      final Size currentSize = layoutChild(
+        color,
+        BoxConstraints(maxWidth: columnWidth, maxHeight: size.height),
+      );
+      switch (textDirection) {
+        case TextDirection.rtl:
+          positionChild(color, childPosition - Offset(currentSize.width, 0));
+          childPosition += Offset(
+            -currentSize.width,
+            currentSize.height - overlap,
+          );
+          break;
+        case TextDirection.ltr:
+          positionChild(color, childPosition);
+          childPosition += Offset(
+            currentSize.width,
+            currentSize.height - overlap,
+          );
+          break;
+      }
     }
-  }
   }
 
   @override

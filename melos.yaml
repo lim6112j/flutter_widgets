@@ -1,13 +1,8 @@
 name: melos_project
 
 packages:
-  - packages/api_client
-  - packages/my_dart_package
-  - apps/flutter_animate_app
-  - apps/interaction_model_widget_app
-  - apps/my_flutter_app
-  - apps/navigation_routing_app
-  - apps/widgets_app
+  - packages/**
+  - apps/**
 
 command:
   bootstrap:
