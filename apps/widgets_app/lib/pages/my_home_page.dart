@@ -129,15 +129,6 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
       appBar: AppBar(
         actions: [
           IconButton(icon: Icon(Icons.refresh), onPressed: _loadSampleRoutes),
-          if (routesState.isLoading)
-            Padding(
-              padding: EdgeInsets.all(16.0),
-              child: SizedBox(
-                width: 20,
-                height: 20,
-                child: CircularProgressIndicator(strokeWidth: 2),
-              ),
-            ),
         ],
       ),
       body: ResizableContainer(
@@ -148,7 +139,17 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
           size: 3.0,
           thickness: 2.0,
         ),
-        children: const [MyMap(), DraggableScrollableSheetWidget()],
+        children:  [(routesState.isLoading) 
+          ?  Padding(
+              padding: EdgeInsets.all(16.0),
+              child: SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(strokeWidth: 2),
+              ),
+            )
+          : MyMap(),
+          DraggableScrollableSheetWidget()],
       ),
     );
   }
