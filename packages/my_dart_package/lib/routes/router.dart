@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:widgets_app/pages/doodle_page.dart';
 import 'package:widgets_app/pages/future_builder.dart';
 import 'package:widgets_app/pages/martix_transition_example.dart';
 import 'package:widgets_app/pages/my_custom_multi_child_page.dart';
@@ -48,6 +49,11 @@ final routes = GoRouter(
       path: '/custom-multi-child',
       name: 'custom-multi-child',
       builder: (context, state) => const MyCustomMultiChildPage(),
+    ),
+    GoRoute(
+      path: '/doodle',
+      name: 'doodle',
+      builder: (context, state) => const DoodlePage(),
     ),
   ],
 );
