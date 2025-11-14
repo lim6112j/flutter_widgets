@@ -79,70 +79,100 @@ class _MyMapState extends State<MyMap> {
     }
   }
 
-  RouteData? _processRouteGeometry(String geometry, int routeIndex) {
+
+RouteData? _processRouteGeometry(String geometry, int routeIndex) {
+  try {
+    AppLogger.debug('Processing geometry for route $routeIndex: ${geometry.substring(0, 20)}...');
+    
+    // Debug: Log the raw geometry string
+    AppLogger.debug('Raw geometry length: ${geometry.length}');
+    
+    // Try different precision values - OSRM typically uses precision 5
+    List<LatLng> latLngs = [];
+    
     try {
-      AppLogger.debug(
-        'Processing geometry for route $routeIndex: ${geometry.substring(0, 20)}...',
-      );
-
-      // Decode polyline and convert to map coordinates
-      final latLngs = PolylineDecoder.decode(geometry);
-
-      if (latLngs.isEmpty) {
-        AppLogger.warning('No coordinates decoded for route $routeIndex');
+      // Method 1: Try with precision 5 (OSRM standard)
+      latLngs = PolylineDecoder.decode(geometry);
+      
+      AppLogger.debug('Decoded with precision 5: ${latLngs.length} points');
+      if (latLngs.isNotEmpty) {
+        AppLogger.debug('First point: ${latLngs.first.latitude}, ${latLngs.first.longitude}');
+        AppLogger.debug('Last point: ${latLngs.last.latitude}, ${latLngs.last.longitude}');
+      }
+    } catch (e) {
+      AppLogger.warning('Failed with precision 5, trying precision 6: $e');
+      
+      // Method 2: Try with precision 6
+      try {
+        latLngs = PolylineDecoder.decode(geometry);
+        AppLogger.debug('Decoded with precision 6: ${latLngs.length} points');
+      } catch (e2) {
+        AppLogger.error('Failed with both precisions: $e2');
         return null;
       }
-
-      // Create polyline for drawing on map
-      final polyline = Polyline(
-        points: latLngs,
-        strokeWidth: 4.0,
-        color: _getRouteColor(routeIndex),
-      );
-
-      // Create start and end markers
-      final markers = <Marker>[
-        // Start marker
-        Marker(
-          point: latLngs.first,
-          width: 30,
-          height: 30,
-          child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.green,
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(Icons.play_arrow, color: Colors.white, size: 16),
-          ),
-        ),
-        // End marker
-        Marker(
-          point: latLngs.last,
-          width: 30,
-          height: 30,
-          child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.red,
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(Icons.stop, color: Colors.white, size: 16),
-          ),
-        ),
-      ];
-
-      AppLogger.debug(
-        'Route $routeIndex: Successfully processed ${latLngs.length} coordinates',
-      );
-
-      return RouteData(polyline: polyline, markers: markers, points: latLngs);
-    } catch (e) {
-      AppLogger.error(
-        'Failed to process route geometry for route $routeIndex: $e',
-      );
+    }
+    
+    if (latLngs.isEmpty) {
+      AppLogger.warning('No valid coordinates decoded for route $routeIndex');
       return null;
     }
-  }
 
+    // Debug: Check coordinate ranges
+    final latRange = latLngs.map((p) => p.latitude);
+    final lngRange = latLngs.map((p) => p.longitude);
+    AppLogger.debug('Lat range: ${latRange.reduce((a, b) => a < b ? a : b)} to ${latRange.reduce((a, b) => a > b ? a : b)}');
+    AppLogger.debug('Lng range: ${lngRange.reduce((a, b) => a < b ? a : b)} to ${lngRange.reduce((a, b) => a > b ? a : b)}');
+
+    // Create polyline for drawing on map
+    final polyline = Polyline(
+      points: latLngs,
+      strokeWidth: 4.0,
+      color: _getRouteColor(routeIndex),
+    );
+
+    // Create start and end markers
+    final markers = <Marker>[
+      // Start marker
+      Marker(
+        point: latLngs.first,
+        width: 30,
+        height: 30,
+        child: Container(
+          decoration: const BoxDecoration(
+            color: Colors.green,
+            shape: BoxShape.circle,
+          ),
+          child: const Icon(Icons.play_arrow, color: Colors.white, size: 16),
+        ),
+      ),
+      // End marker
+      Marker(
+        point: latLngs.last,
+        width: 30,
+        height: 30,
+        child: Container(
+          decoration: const BoxDecoration(
+            color: Colors.red,
+            shape: BoxShape.circle,
+          ),
+          child: const Icon(Icons.stop, color: Colors.white, size: 16),
+        ),
+      ),
+    ];
+
+    AppLogger.debug('Route $routeIndex: Successfully processed ${latLngs.length} coordinates');
+    
+    return RouteData(
+      polyline: polyline,
+      markers: markers,
+      points: latLngs,
+    );
+    
+  } catch (e) {
+    AppLogger.error('Failed to process route geometry for route $routeIndex: $e');
+    return null;
+  }
+}
   bool _isValidLatLng(LatLng latLng) {
     return latLng.latitude.isFinite &&
         latLng.longitude.isFinite &&
