@@ -131,25 +131,44 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
           IconButton(icon: Icon(Icons.refresh), onPressed: _loadSampleRoutes),
         ],
       ),
-      body: ResizableContainer(
-        controller: _controller,
-        direction: Axis.vertical,
-        divider: const ResizableDivider(
-          color: Colors.grey,
-          size: 3.0,
-          thickness: 2.0,
+      body: Column(
+        children:  [
+        if (routesState.error != null)
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(8.0),
+            color: Colors.red.shade100,
+            child: Text(
+              'Error: ${routesState.error}',
+              style: TextStyle(color: Colors.red.shade800),
+            ),
+          ),
+        if (routesState.routes.isNotEmpty)
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(8.0),
+            color: Colors.green.shade100,
+            child: Text(
+              'Routes loaded: ${routesState.routes.length} routes found',
+              style: TextStyle(color: Colors.green.shade800),
+            ),
+          ),
+        Expanded(
+          child: ResizableContainer(
+            controller: _controller,
+            direction: Axis.vertical,
+            divider: const ResizableDivider(
+              color: Colors.grey,
+              size: 3.0,
+              thickness: 2.0,
+            ),
+            children: [
+              MyMap(routes: routesState.routes), // Pass routes to MyMap
+              const DraggableScrollableSheetWidget()
+            ],
+          ),
         ),
-        children:  [(routesState.isLoading) 
-          ?  Padding(
-              padding: EdgeInsets.all(16.0),
-              child: SizedBox(
-                width: 20,
-                height: 20,
-                child: CircularProgressIndicator(strokeWidth: 2),
-              ),
-            )
-          : MyMap(),
-          DraggableScrollableSheetWidget()],
+        ],
       ),
     );
   }
