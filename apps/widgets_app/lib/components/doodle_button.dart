@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class DoodleButton extends StatefulWidget {
@@ -35,7 +34,7 @@ class _DoodleButtonState extends State<DoodleButton>
   late AnimationController _animationController;
   late Animation<double> _elevationAnimation;
   late Animation<double> _scaleAnimation;
-  
+
   bool _isPressed = false;
   bool _isHovered = false;
 
@@ -47,21 +46,20 @@ class _DoodleButtonState extends State<DoodleButton>
       vsync: this,
     );
 
-    _elevationAnimation = Tween<double>(
-      begin: widget.elevation,
-      end: widget.pressedElevation,
-    ).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
-    ));
+    _elevationAnimation =
+        Tween<double>(
+          begin: widget.elevation,
+          end: widget.pressedElevation,
+        ).animate(
+          CurvedAnimation(
+            parent: _animationController,
+            curve: Curves.easeInOut,
+          ),
+        );
 
-    _scaleAnimation = Tween<double>(
-      begin: 1.0,
-      end: 0.95,
-    ).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
-    ));
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.95).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+    );
   }
 
   @override
@@ -173,60 +171,74 @@ class DoodleBorder extends ShapeBorder {
   Path getOuterPath(Rect rect, {TextDirection? textDirection}) {
     final path = Path();
     final radius = borderRadius;
-    
+
     // Create a hand-drawn style border with slight variations
     final variation = isPressed ? 2.0 : (isHovered ? 1.5 : 1.0);
-    
+
     // Top-left corner
     path.moveTo(radius + variation, 0);
-    
+
     // Top edge with slight wave
     path.quadraticBezierTo(
-      rect.width * 0.25, -variation,
-      rect.width * 0.5, variation * 0.5,
+      rect.width * 0.25,
+      -variation,
+      rect.width * 0.5,
+      variation * 0.5,
     );
     path.quadraticBezierTo(
-      rect.width * 0.75, variation,
-      rect.width - radius - variation, 0,
+      rect.width * 0.75,
+      variation,
+      rect.width - radius - variation,
+      0,
     );
-    
+
     // Top-right corner
     path.quadraticBezierTo(rect.width, 0, rect.width, radius + variation);
-    
+
     // Right edge
     path.quadraticBezierTo(
-      rect.width + variation * 0.5, rect.height * 0.5,
-      rect.width, rect.height - radius - variation,
+      rect.width + variation * 0.5,
+      rect.height * 0.5,
+      rect.width,
+      rect.height - radius - variation,
     );
-    
+
     // Bottom-right corner
     path.quadraticBezierTo(
-      rect.width, rect.height,
-      rect.width - radius - variation, rect.height,
+      rect.width,
+      rect.height,
+      rect.width - radius - variation,
+      rect.height,
     );
-    
+
     // Bottom edge
     path.quadraticBezierTo(
-      rect.width * 0.75, rect.height + variation * 0.5,
-      rect.width * 0.5, rect.height - variation * 0.5,
+      rect.width * 0.75,
+      rect.height + variation * 0.5,
+      rect.width * 0.5,
+      rect.height - variation * 0.5,
     );
     path.quadraticBezierTo(
-      rect.width * 0.25, rect.height - variation,
-      radius + variation, rect.height,
+      rect.width * 0.25,
+      rect.height - variation,
+      radius + variation,
+      rect.height,
     );
-    
+
     // Bottom-left corner
     path.quadraticBezierTo(0, rect.height, 0, rect.height - radius - variation);
-    
+
     // Left edge
     path.quadraticBezierTo(
-      -variation * 0.5, rect.height * 0.5,
-      0, radius + variation,
+      -variation * 0.5,
+      rect.height * 0.5,
+      0,
+      radius + variation,
     );
-    
+
     // Close the path
     path.quadraticBezierTo(0, 0, radius + variation, 0);
-    
+
     return path;
   }
 

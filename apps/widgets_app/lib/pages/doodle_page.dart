@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:widgets_app/components/doodle_box.dart';
 import 'package:widgets_app/components/doodle_button.dart';
+
 class DoodlePage extends StatelessWidget {
-  const DoodlePage({super.key}); 
+  const DoodlePage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,22 +43,22 @@ class DoodlePage extends StatelessWidget {
             child: DoodleBox(
               size: const Size(300, 150),
               child: Center(
-                    child: DoodleButton(
-                      onPressed: () {},
-                      backgroundColor: Colors.green.shade100,
-                      foregroundColor: Colors.green.shade800,
-                      child: const Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.brush),
-                          SizedBox(width: 8),
-                          Text('Draw'),
-                        ],
-                      ),
-                    ),
+                child: DoodleButton(
+                  onPressed: () {},
+                  backgroundColor: Colors.green.shade100,
+                  foregroundColor: Colors.green.shade800,
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.brush),
+                      SizedBox(width: 8),
+                      Text('Draw'),
+                    ],
+                  ),
                 ),
               ),
             ),
+          ),
         ],
       ),
     );
