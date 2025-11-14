@@ -43,6 +43,7 @@ dependencies:
   osrm_routes:
     path: ../../packages/features/osrm/routes
   flutter_riverpod: ^2.5.0
+  logger: ^2.0.2+1
 
 dev_dependencies:
   flutter_test:

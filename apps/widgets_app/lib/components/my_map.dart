@@ -8,7 +8,7 @@ class MyMap extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlutterMap(
       options: const MapOptions(
-        initialCenter: LatLng(37.7749, -122.4194), // San Francisco
+        initialCenter: LatLng(37.7749, 127.4194), // San Francisco
         initialZoom: 13.0,
       ),
       children: [
@@ -19,7 +19,7 @@ class MyMap extends StatelessWidget {
         MarkerLayer(
           markers: [
             Marker(
-              point: const LatLng(37.7749, -122.4194),
+              point: const LatLng(37.7749, 127.4194),
               width: 80,
               height: 80,
               child: const Icon(

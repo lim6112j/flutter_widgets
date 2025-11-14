@@ -6,6 +6,7 @@ import 'package:widgets_app/components/my_map.dart';
 import 'package:widgets_app/components/my_menu.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:osrm_routes/osrm_routes.dart';
+import 'package:widgets_app/utils/app_logger.dart';
 
 class MyHomePage extends ConsumerStatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -53,6 +54,64 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
     notifier.getRoutes(sampleLocations);
   }
 
+  void _logStateChange(OsrmRoutesState? previous, OsrmRoutesState next) {
+    AppLogger.info('🔄 OSRM Routes State Changed at ${DateTime.now()}');
+
+    // Loading state change
+    if (previous?.isLoading != next.isLoading) {
+      AppLogger.debug(
+        '📡 Loading state: ${previous?.isLoading} → ${next.isLoading}',
+      );
+    }
+
+    // Error state change
+    if (previous?.error != next.error) {
+      if (next.error != null) {
+        AppLogger.error('❌ Error occurred: ${next.error}');
+      } else {
+        AppLogger.info('✅ Error cleared');
+      }
+    }
+
+    // Routes count change
+    if (previous?.routes.length != next.routes.length) {
+      AppLogger.info(
+        '🛣️ Routes count: ${previous?.routes.length ?? 0} → ${next.routes.length}',
+      );
+    }
+
+    // Response code change
+    if (previous?.routeResponse?.code != next.routeResponse?.code) {
+      AppLogger.debug(
+        '📋 Response code: ${previous?.routeResponse?.code} → ${next.routeResponse?.code}',
+      );
+    }
+
+    // Log route details if available
+    if (next.routes.isNotEmpty) {
+      AppLogger.info('📊 Route Details:');
+      for (int i = 0; i < next.routes.length; i++) {
+        final route = next.routes[i];
+        AppLogger.debug(
+          '  Route $i: ${(route.distance / 1000).toStringAsFixed(1)}km, ${(route.duration / 60).toStringAsFixed(0)}min',
+        );
+      }
+    }
+
+    // Log waypoints if available
+    if (next.routeResponse?.waypoints != null) {
+      AppLogger.debug(
+        '📍 Waypoints: ${next.routeResponse!.waypoints!.length} found',
+      );
+      for (int i = 0; i < next.routeResponse!.waypoints!.length; i++) {
+        final waypoint = next.routeResponse!.waypoints![i];
+        AppLogger.debug(
+          '  Waypoint $i: ${waypoint.name} at ${waypoint.location}',
+        );
+      }
+    }
+  }
+
   @override
   void dispose() {
     _controller.dispose();
@@ -61,20 +120,17 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
+    ref.listen(osrmRoutesProvider, (previous, next) {
+      _logStateChange(previous, next);
+    });
     final routesState = ref.watch(osrmRoutesProvider);
-
     return Scaffold(
       drawer: const MyMenu(),
-      appBar: const MyAppBar(
-        title: 'my app',
+      appBar: AppBar(
         actions: [
-          IconButton(
-            icon: Icon(Icons.refresh),
-            onPressed:  _loadSampleRoutes,
-          ),
+          IconButton(icon: Icon(Icons.refresh), onPressed: _loadSampleRoutes),
           if (routesState.isLoading)
-             Padding(
+            Padding(
               padding: EdgeInsets.all(16.0),
               child: SizedBox(
                 width: 20,
@@ -82,7 +138,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                 child: CircularProgressIndicator(strokeWidth: 2),
               ),
             ),
-        ]
+        ],
       ),
       body: ResizableContainer(
         controller: _controller,
