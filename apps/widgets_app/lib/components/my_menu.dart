@@ -69,6 +69,12 @@ class MyMenu extends StatelessWidget {
               context.push('/doodle');
             },
           ),
+          ListTile(
+            title: const Text('stack'),
+            onTap: () {
+              context.push('/stack');
+            },
+          ),
         ],
       ),
     );

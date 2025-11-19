@@ -7,6 +7,7 @@ import 'package:widgets_app/pages/my_home_page.dart';
 import 'package:widgets_app/pages/my_setting_page.dart';
 import 'package:widgets_app/pages/map_page.dart';
 import 'package:widgets_app/pages/my_draggable_page.dart';
+import 'package:widgets_app/pages/stack_page.dart';
 import 'package:widgets_app/pages/stream_builder_example.dart';
 
 final routes = GoRouter(
@@ -54,6 +55,11 @@ final routes = GoRouter(
       path: '/doodle',
       name: 'doodle',
       builder: (context, state) => const DoodlePage(),
+    ),
+    GoRoute(
+      path: '/stack',
+      name: 'stack',
+      builder: (context, state) => const StackPage(),
     ),
   ],
 );
