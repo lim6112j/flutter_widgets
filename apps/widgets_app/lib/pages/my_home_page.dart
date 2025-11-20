@@ -126,7 +126,8 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
     final routesState = ref.watch(osrmRoutesProvider);
     return Scaffold(
       drawer: const MyMenu(),
-      appBar: AppBar(
+      appBar: MyAppBar(
+        title: widget.title,
         actions: [
           IconButton(icon: Icon(Icons.refresh), onPressed: _loadSampleRoutes),
         ],

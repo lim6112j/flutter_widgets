@@ -26,15 +26,8 @@ class StackPage extends StatelessWidget {
               height: 100,
             ),
           ),
-          Container(
-            color: Colors.red,
-            width: double.infinity,
-            height: 50,
-          ),
-          Container(
-            child: Center(
-              child: Text("Hello World"))
-          )
+          Container(color: Colors.red, width: double.infinity, height: 50),
+          Container(child: Center(child: Text("Hello World"))),
         ],
       ),
     );
