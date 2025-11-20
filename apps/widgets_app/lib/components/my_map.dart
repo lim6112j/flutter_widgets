@@ -19,10 +19,22 @@ class _MyMapState extends State<MyMap> {
   List<Marker> _waypoints = [];
 
   @override
+  void initState() {
+    super.initState();
+    // Draw routes on initial load if they exist
+    if (widget.routes.isNotEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _drawRoutes();
+      });
+    }
+  }
+
+  @override
   void didUpdateWidget(MyMap oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (oldWidget.routes.length != widget.routes.length) {
+    if (oldWidget.routes.length != widget.routes.length ||
+        oldWidget.routes != widget.routes) {
       AppLogger.info('MyMap: Routes updated - ${widget.routes.length} routes');
       _drawRoutes();
     }
@@ -48,7 +60,8 @@ class _MyMapState extends State<MyMap> {
       final route = widget.routes[i];
       AppLogger.debug(
         'Route $i: ${(route.distance / 1000).toStringAsFixed(1)}km, '
-        '${(route.duration / 60).toStringAsFixed(0)}min',
+        '${(route.duration / 60).toStringAsFixed(0)}min, '
+        'geometry: ${route.geometry.substring(0, route.geometry.length > 50 ? 50 : route.geometry.length)}...',
       );
 
       // Process route geometry for drawing
@@ -58,6 +71,9 @@ class _MyMapState extends State<MyMap> {
           polylines.add(routeData.polyline);
           markers.addAll(routeData.markers);
           allPoints.addAll(routeData.points);
+          AppLogger.info('Route $i: Added ${routeData.points.length} points to map');
+        } else {
+          AppLogger.warning('Route $i: Failed to process geometry');
         }
       }
 
@@ -68,6 +84,8 @@ class _MyMapState extends State<MyMap> {
       }
     }
 
+    AppLogger.info('Total polylines: ${polylines.length}, markers: ${markers.length}, points: ${allPoints.length}');
+
     setState(() {
       _routePolylines = polylines;
       _waypoints = markers;
@@ -76,13 +94,15 @@ class _MyMapState extends State<MyMap> {
     // Fit map to show all routes
     if (allPoints.isNotEmpty) {
       _fitMapToRoutes(allPoints);
+    } else {
+      AppLogger.warning('No points to fit map bounds');
     }
   }
 
   RouteData? _processRouteGeometry(String geometry, int routeIndex) {
     try {
       AppLogger.debug(
-        'Processing geometry for route $routeIndex: ${geometry.substring(0, 20)}...',
+        'Processing geometry for route $routeIndex: ${geometry.substring(0, geometry.length > 20 ? 20 : geometry.length)}...',
       );
 
       // Debug: Log the raw geometry string
@@ -122,9 +142,22 @@ class _MyMapState extends State<MyMap> {
         return null;
       }
 
+      // Validate all points
+      final validPoints = latLngs.where(_isValidLatLng).toList();
+      if (validPoints.length != latLngs.length) {
+        AppLogger.warning(
+          'Route $routeIndex: Filtered out ${latLngs.length - validPoints.length} invalid points',
+        );
+      }
+
+      if (validPoints.isEmpty) {
+        AppLogger.error('Route $routeIndex: No valid points after filtering');
+        return null;
+      }
+
       // Debug: Check coordinate ranges
-      final latRange = latLngs.map((p) => p.latitude);
-      final lngRange = latLngs.map((p) => p.longitude);
+      final latRange = validPoints.map((p) => p.latitude);
+      final lngRange = validPoints.map((p) => p.longitude);
       AppLogger.debug(
         'Lat range: ${latRange.reduce((a, b) => a < b ? a : b)} to ${latRange.reduce((a, b) => a > b ? a : b)}',
       );
@@ -134,7 +167,7 @@ class _MyMapState extends State<MyMap> {
 
       // Create polyline for drawing on map
       final polyline = Polyline(
-        points: latLngs,
+        points: validPoints,
         strokeWidth: 4.0,
         color: _getRouteColor(routeIndex),
       );
@@ -143,7 +176,7 @@ class _MyMapState extends State<MyMap> {
       final markers = <Marker>[
         // Start marker
         Marker(
-          point: latLngs.first,
+          point: validPoints.first,
           width: 30,
           height: 30,
           child: Container(
@@ -156,7 +189,7 @@ class _MyMapState extends State<MyMap> {
         ),
         // End marker
         Marker(
-          point: latLngs.last,
+          point: validPoints.last,
           width: 30,
           height: 30,
           child: Container(
@@ -169,14 +202,16 @@ class _MyMapState extends State<MyMap> {
         ),
       ];
 
-      AppLogger.debug(
-        'Route $routeIndex: Successfully processed ${latLngs.length} coordinates',
+      AppLogger.info(
+        'Route $routeIndex: Successfully processed ${validPoints.length} coordinates',
       );
 
-      return RouteData(polyline: polyline, markers: markers, points: latLngs);
-    } catch (e) {
+      return RouteData(polyline: polyline, markers: markers, points: validPoints);
+    } catch (e, stackTrace) {
       AppLogger.error(
         'Failed to process route geometry for route $routeIndex: $e',
+        e,
+        stackTrace,
       );
       return null;
     }
@@ -220,6 +255,11 @@ class _MyMapState extends State<MyMap> {
         return;
       }
 
+      AppLogger.info(
+        'Fitting map to bounds: NE(${bounds.northEast.latitude}, ${bounds.northEast.longitude}), '
+        'SW(${bounds.southWest.latitude}, ${bounds.southWest.longitude})',
+      );
+
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _mapController.fitCamera(
           CameraFit.bounds(
@@ -229,8 +269,8 @@ class _MyMapState extends State<MyMap> {
           ),
         );
       });
-    } catch (e) {
-      AppLogger.error('Failed to fit map to routes: $e');
+    } catch (e, stackTrace) {
+      AppLogger.error('Failed to fit map to routes: $e', e, stackTrace);
     }
   }
 
@@ -246,8 +286,8 @@ class _MyMapState extends State<MyMap> {
     return FlutterMap(
       mapController: _mapController,
       options: const MapOptions(
-        initialCenter: LatLng(37.7749, 127.4194),
-        initialZoom: 13.0,
+        initialCenter: LatLng(37.5665, 126.9780), // Seoul coordinates
+        initialZoom: 11.0,
       ),
       children: [
         TileLayer(
