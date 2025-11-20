@@ -55,11 +55,15 @@ class PolylineDecoder {
         int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
         lng += dlng;
 
-        final latLng = LatLng(lat / factor, lng / factor);
+        final decodedLat = lat / factor;
+        final decodedLng = lng / factor;
+        final latLng = LatLng(decodedLat, decodedLng);
         points.add(latLng);
         
-        if (points.length <= 3 || points.length == points.length) {
-          AppLogger.debug('🔍 Point ${points.length}: lat=${latLng.latitude}, lng=${latLng.longitude}');
+        // Log first few points with detailed info
+        if (points.length <= 5) {
+          AppLogger.debug('🔍 Point ${points.length}: lat=$decodedLat (raw=$lat), lng=$decodedLng (raw=$lng)');
+          AppLogger.debug('   Valid: lat=${decodedLat >= -90 && decodedLat <= 90}, lng=${decodedLng >= -180 && decodedLng <= 180}');
         }
       }
       
@@ -67,6 +71,13 @@ class PolylineDecoder {
       if (points.isNotEmpty) {
         AppLogger.debug('First point: ${points.first.latitude}, ${points.first.longitude}');
         AppLogger.debug('Last point: ${points.last.latitude}, ${points.last.longitude}');
+        
+        // Check if any points are valid
+        final validCount = points.where((p) => 
+          p.latitude >= -90 && p.latitude <= 90 && 
+          p.longitude >= -180 && p.longitude <= 180
+        ).length;
+        AppLogger.debug('Valid points: $validCount / ${points.length}');
       }
       return points;
     } catch (e, stackTrace) {
