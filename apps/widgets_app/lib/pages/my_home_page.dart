@@ -48,8 +48,8 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
   void _loadSampleRoutes() {
     final notifier = ref.read(osrmRoutesProvider.notifier);
     final sampleLocations = [
-      const OsrmLocation(longitude: 126.9780, latitude: 37.5665), // Seoul
-      const OsrmLocation(longitude: 129.0756, latitude: 35.1796), // Busan
+    const OsrmLocation(longitude: 126.9780, latitude: 37.5665), // Seoul
+    const OsrmLocation(longitude: 127.0276, latitude: 37.4979), // Gangnam (closer)
     ];
     notifier.getRoutes(sampleLocations);
   }

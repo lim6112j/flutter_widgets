@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:widgets_app/pages/doodle_page.dart';
+import 'package:widgets_app/pages/flow_page.dart';
 import 'package:widgets_app/pages/future_builder.dart';
 import 'package:widgets_app/pages/martix_transition_example.dart';
 import 'package:widgets_app/pages/my_custom_multi_child_page.dart';
@@ -61,5 +62,10 @@ final routes = GoRouter(
       name: 'stack',
       builder: (context, state) => const StackPage(),
     ),
+    GoRoute(
+      path: "/flow-page",
+      name: "flow-page",
+      builder: (context, state) => const FlowPage(),
+    )
   ],
 );

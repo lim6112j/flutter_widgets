@@ -16,6 +16,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       // the App.build method, and use it to set our appbar title.
       title: Text(title),
       actions: [
+        ...?actions,
         IconButton(
           icon: const Icon(Icons.search),
           onPressed: () {
