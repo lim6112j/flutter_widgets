@@ -81,6 +81,12 @@ class MyMenu extends StatelessWidget {
               context.push('/flow-page');
             },
           ),
+          ListTile(
+            title: const Text('carousel-page'),
+            onTap: () {
+              context.push('/carousel-page');
+            },
+          ),
         ],
       ),
     );

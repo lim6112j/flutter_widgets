@@ -10,6 +10,7 @@ import 'package:widgets_app/pages/map_page.dart';
 import 'package:widgets_app/pages/my_draggable_page.dart';
 import 'package:widgets_app/pages/stack_page.dart';
 import 'package:widgets_app/pages/stream_builder_example.dart';
+import 'package:widgets_app/pages/carousel_page.dart';
 
 final routes = GoRouter(
   routes: [
@@ -66,6 +67,11 @@ final routes = GoRouter(
       path: "/flow-page",
       name: "flow-page",
       builder: (context, state) => const FlowPage(),
+    ),
+    GoRoute(
+      path: "/carousel-page",
+      name: "carousel-page",
+      builder: (context, state) => const CarouselPage(),
     )
   ],
 );
